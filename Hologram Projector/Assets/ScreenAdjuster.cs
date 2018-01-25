@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.Analytics;
 
 public class ScreenAdjuster : MonoBehaviour {
 
@@ -9,6 +10,12 @@ public class ScreenAdjuster : MonoBehaviour {
 	void Start () {
         int square = Screen.height;
         Screen.SetResolution(square, square, true);
+		if (Screen.height != Screen.width) {
+			Analytics.CustomEvent ("wrongResolution", new Dictionary<string, object> {
+				{ "width", Screen.width },
+				{ "height", Screen.height }
+			});
+		}
 	}
 
     // Update is called once per frame
